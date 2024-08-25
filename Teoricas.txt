@@ -1,0 +1,43 @@
+1 - Jogo do par ou impar como seria a “inteligência de uma máquina”? Descreva com suas palavras a sua estratégia.
+Resposta:
+A estratégia seria a máquina manter em aprendizado onde ela analisa as jogadas/decisões anteriores e ajusta as futuras decisões. Por exemplo, se o jogo for jogado várias vezes, a máquina pode tentar detectar padrões nos adversários, por exemplo, ela pode notar que a maioria escolhe par, então ela pode optar por escolher números que tenham mais chances de ganhar contra esse padrão (par). 
+
+2- Jogo da “pedra , papel e tesoura”, descreva como você faria uma “inteligência para jogar como uma máquina”
+Resposta:
+No Jokenpo pode se usar uma estratégia parecida com a de par ou ímpar, a máquina pode analisar as jogadas anteriores e detectar a opção utilizada com mais frequência, se ela observar que o adversário usa mais "papel", a máquina pode aumentar a probabilidade de escolher "tesoura" para vencer, assim como se ela observar que após optar por papel a grande parte dos adversários escolhem "tesoura" ela pode utilizar de "pedra" para vencer também. Sendo assim, a máquina pode utilizar de algoritmos de aprendizado de máquina para prever a próxima jogada do adversário com base nas escolhas anteriores.
+
+3 -Considere o jogo connect 4 (ou lig 4). Escreva uma representação de “análise” e jogada utilizando o conceito de árvore igualmente feito no jogo da velha. Descreva como é o funcionamento e a lógica de jogada da máquina.
+Resposta:
+Exemplo de Árvore de Decisão:
+A máquina analisa as 7 colunas onde pode jogar.
+
+Camada 1: Possíveis Jogadas da Máquina
+Se a máquina joga na Coluna 1, o oponente tem 7 colunas para escolher.
+Se a máquina joga na Coluna 2, o oponente também tem 7 colunas para escolher e assim por diante.
+
+Camada 2: Respostas do Oponente
+Para cada uma das jogadas da máquina, o algoritmo analisa todas as jogadas possíveis do oponente e calcula a pontuação.
+
+Propagação e Escolha:
+A máquina escolhe a jogada que, mesmo considerando a melhor resposta do oponente, ainda dá à máquina a maior chance de vitória.
+
+Como funciona o Algoritmo Minimax no Connect 4?
+O algoritmo Minimax é uma técnica de tomada de decisão que utiliza uma árvore de decisões para simular as possíveis jogadas de ambos os jogadores. O objetivo é maximizar as chances de vitória do jogador controlado pela máquina e minimizar as chances de vitória do oponente.
+
+1. Estrutura da Árvore de Decisão
+Raiz da Árvore: Representa o estado atual do tabuleiro. A partir desse estado, a máquina explora todas as jogadas possíveis.
+Nós Filhos: Cada nó filho da raiz representa um estado do tabuleiro após uma jogada. Se for a vez da máquina jogar, o nó calcula a melhor jogada possível para maximizar a chance de vitória. Se for a vez do oponente, o nó simula a jogada que minimizaria a chance de vitória da máquina.
+Folhas da Árvore: Os nós folha representam estados finais do jogo: vitória, derrota ou empate.
+
+2. Pontuação de Estados
+O algoritmo atribui uma pontuação a cada estado do jogo:
+Vitória para a máquina: Recebe uma pontuação alta (por exemplo, +100).
+Derrota para a máquina: Recebe uma pontuação baixa (por exemplo, -100).
+Empate: Recebe uma pontuação neutra (por exemplo, 0).
+Além disso, estados intermediários podem receber pontuações baseadas em padrões favoráveis (por exemplo, três peças alinhadas sem interrupção).
+
+3. Propagação de Valores (Backtracking)
+Depois de explorar a árvore até uma profundidade desejada, o algoritmo realiza um processo de backtracking, onde as pontuações são propagadas para cima. Se for a vez da máquina jogar, ela escolhe o movimento que maximiza a pontuação. Se for a vez do oponente, a máquina assume que o oponente jogará de forma a minimizar a pontuação da máquina.
+Esse processo permite que a máquina determine a jogada ideal com base em uma análise antecipada de todas as opções.
+
+4, 5 - estão no git 
