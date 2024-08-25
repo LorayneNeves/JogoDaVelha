@@ -8,7 +8,7 @@ class JogoDaVelha
 		{ ' ', ' ', ' ' }
 	};
 
-	static char jogador = 'X';
+	static char maquina = 'X';
 	static char adversario = 'O';
 
 	static void Main(string[] args)
@@ -17,7 +17,7 @@ class JogoDaVelha
 		{
 			Console.Clear();
 			ExibirTabuleiro();
-			if (VerificarVencedor(jogador))
+			if (VerificarVencedor(maquina))
 			{
 				Console.WriteLine("Jogador X venceu!");
 				break;
@@ -33,15 +33,13 @@ class JogoDaVelha
 				break;
 			}
 
-			if (jogador == 'X')
+			if (maquina == 'X')
 			{
-				// Estratégia de Pontuação (4a)
 				var jogada = CalcularMelhorJogada();
-				tabuleiro[jogada.Item1, jogada.Item2] = jogador;
+				tabuleiro[jogada.Item1, jogada.Item2] = maquina;
 			}
 			else
 			{
-				// Para simplificar, o adversário joga manualmente
 				Console.WriteLine("Vez do jogador O. Escolha uma posição (linha e coluna): ");
 				int linha = int.Parse(Console.ReadLine());
 				int coluna = int.Parse(Console.ReadLine());
@@ -51,7 +49,7 @@ class JogoDaVelha
 				}
 			}
 
-			jogador = (jogador == 'X') ? 'O' : 'X'; // Alterna jogadores
+			maquina = (maquina == 'X') ? 'O' : 'X'; 
 		}
 	}
 
@@ -79,30 +77,24 @@ class JogoDaVelha
 			{
 				if (tabuleiro[i, j] == ' ')
 				{
-					// Mais 2 pontos se for a posição central
 					if (i == 1 && j == 1)
 						pontuacao[i, j] += 2;
 
-					// Mais 1 ponto se for um dos cantos
 					if ((i == 0 && j == 0) || (i == 0 && j == 2) || (i == 2 && j == 0) || (i == 2 && j == 2))
 						pontuacao[i, j] += 1;
 
-					// Menos 2 pontos se o adversário estiver na mesma linha, coluna ou diagonal
 					if (LinhaTemAdversario(i, j) || ColunaTemAdversario(i, j) || DiagonalTemAdversario(i, j))
 						pontuacao[i, j] -= 2;
 
-					// Mais 4 pontos se bloquear a vitória do adversário
 					if (SimulaJogadaEVerificaVitoria(i, j, adversario))
 						pontuacao[i, j] += 4;
 
-					// Mais 4 pontos se levar à vitória
-					if (SimulaJogadaEVerificaVitoria(i, j, jogador))
+					if (SimulaJogadaEVerificaVitoria(i, j, maquina))
 						pontuacao[i, j] += 4;
 				}
 			}
 		}
 
-		// Escolher a posição com a maior pontuação
 		int melhorLinha = 0, melhorColuna = 0, maiorPontuacao = int.MinValue;
 		for (int i = 0; i < 3; i++)
 		{
@@ -164,13 +156,12 @@ class JogoDaVelha
 	{
 		tabuleiro[linha, coluna] = jogador;
 		bool vitoria = VerificarVencedor(jogador);
-		tabuleiro[linha, coluna] = ' '; // Desfazer jogada simulada
+		tabuleiro[linha, coluna] = ' '; 
 		return vitoria;
 	}
 
 	static bool VerificarVencedor(char jogador)
 	{
-		// Verificar linhas e colunas
 		for (int i = 0; i < 3; i++)
 		{
 			if (tabuleiro[i, 0] == jogador && tabuleiro[i, 1] == jogador && tabuleiro[i, 2] == jogador)
@@ -178,7 +169,7 @@ class JogoDaVelha
 			if (tabuleiro[0, i] == jogador && tabuleiro[1, i] == jogador && tabuleiro[2, i] == jogador)
 				return true;
 		}
-		// Verificar diagonais
+
 		if (tabuleiro[0, 0] == jogador && tabuleiro[1, 1] == jogador && tabuleiro[2, 2] == jogador)
 			return true;
 		if (tabuleiro[0, 2] == jogador && tabuleiro[1, 1] == jogador && tabuleiro[2, 0] == jogador)
